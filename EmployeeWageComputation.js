@@ -10,7 +10,7 @@ let TOTAL_DAYS_IN_MONTH = 20;
 let totalEmpHrs = 0;
 let totalWage = 0;
 let workDays = 0;
-let empDailyWages = new Array();
+let empDailyWages = new Map();
 
 function getEmpWorkHrsForDay(empAttendanceCheck) {
   switch (empAttendanceCheck) {
@@ -26,15 +26,14 @@ function getEmpWorkHrsForDay(empAttendanceCheck) {
 while (totalEmpHrs <= 100 && workDays <= TOTAL_DAYS_IN_MONTH) {
   let empAttendanceCheck = Math.floor(Math.random() * 10) % 3;
   let empHrs = getEmpWorkHrsForDay(empAttendanceCheck);
-  empDailyWages.push(empHrs * EMP_RATE_PER_HR);
+  empDailyWages.set("Day " + workDays, empHrs * EMP_RATE_PER_HR);
   totalEmpHrs += empHrs;
   workDays++;
 }
 
 totalWage = totalEmpHrs * EMP_RATE_PER_HR;
 console.log(
-  "Employee total wage for month is " +
-    totalWage +
-    "\nWages in month are " +
-    empDailyWages.toString()
+  "Employee total wage for month is " + totalWage + "\nWages in month are "
 );
+
+empDailyWages.forEach((v, k) => console.log(k + " :" + v));
