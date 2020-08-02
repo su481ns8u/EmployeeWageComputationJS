@@ -10,26 +10,31 @@ let TOTAL_DAYS_IN_MONTH = 20;
 let totalEmpHrs = 0;
 let totalWage = 0;
 let workDays = 0;
+let empDailyWages = new Array();
 
 function getEmpWorkHrsForDay(empAttendanceCheck) {
   switch (empAttendanceCheck) {
     case IS_FULL_TIME:
-      console.log("Employee is present for full time");
       return FULL_DAY_HR;
     case IS_PART_TIME:
-      console.log("Employee is present for part time");
       return PART_DAY_HR;
     default:
-      console.log("Employee is absent");
       return 0;
   }
 }
 
 while (totalEmpHrs <= 100 && workDays <= TOTAL_DAYS_IN_MONTH) {
   let empAttendanceCheck = Math.floor(Math.random() * 10) % 3;
-  totalEmpHrs += getEmpWorkHrsForDay(empAttendanceCheck);
+  let empHrs = getEmpWorkHrsForDay(empAttendanceCheck);
+  empDailyWages.push(empHrs * EMP_RATE_PER_HR);
+  totalEmpHrs += empHrs;
   workDays++;
 }
 
 totalWage = totalEmpHrs * EMP_RATE_PER_HR;
-console.log("Employee total wage for month is " + totalWage);
+console.log(
+  "Employee total wage for month is " +
+    totalWage +
+    "\nWages in month are " +
+    empDailyWages.toString()
+);
